@@ -22,4 +22,20 @@ repos:
     rev: 6.1.0
     hooks:
       - id: flake8
-        additional_dependencies: [flake8-docstrings] 
+        additional_dependencies: [
+          flake8-docstrings,
+          flake8-bugbear,
+          flake8-bandit,
+          flake8-comprehensions,
+        ]
+
+  # 本地自定义钩子
+  - repo: local
+    hooks:
+      - id: protect-files
+        name: 保护关键文件不被删除
+        description: 检查代码中是否存在删除关键文件的危险操作
+        entry: flake8
+        language: python
+        types: [python]
+        additional_dependencies: ["."]  # 使用本地安装的插件 

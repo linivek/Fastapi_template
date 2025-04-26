@@ -42,26 +42,20 @@ class UserInDBBase(UserBase):
         return utc_to_sydney(dt)
 
     class Config:
-        orm_mode = True
         from_attributes = True
 
 
-# 返回给API的用户信息
+# API请求返回的用户属性
 class User(UserInDBBase):
     pass
 
 
-# 存储在数据库中的用户信息，包含敏感字段
+# 数据库中存储的完整用户信息（包含敏感字段）
 class UserInDB(UserInDBBase):
     hashed_password: str
-
-
-# 令牌模型
-class Token(BaseModel):
-    access_token: str
-    token_type: str
 
 
 # 令牌数据
 class TokenPayload(BaseModel):
     sub: Optional[UUID] = None
+    exp: Optional[int] = None

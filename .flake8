@@ -1,0 +1,110 @@
+[flake8]
+# 基本设置
+max-line-length = 100
+max-complexity = 10
+exclude =
+    .git,
+    __pycache__,
+    .pytest_cache,
+    .venv,
+    venv,
+    .env,
+    build,
+    dist,
+    *.pyc,
+    *.egg-info,
+    .eggs,
+    # 忽略迁移文件（自动生成的代码）
+    alembic/versions/,
+    # 忽略测试目录
+    tests/,
+    # 忽略其他可能不需要检查的目录
+    .github/,
+    docs/,
+    scripts/,
+    migrations/
+
+# 安全相关 (避免删除文件等危险操作)
+ban-mark-usage = remove,unlink,rmdir,rmtree,delete
+
+# 忽略错误
+ignore =
+    # W503: Line break occurred before a binary operator
+    W503,
+    # E203: Whitespace before ':'
+    E203,
+    # F401: 导入了未使用的模块
+    F401,
+    # F811: 导入名称重复定义
+    F811,
+    # D100: 缺少模块级文档字符串
+    D100,
+    # D101: 缺少类文档字符串
+    D101,
+    # D102: 缺少方法文档字符串
+    D102,
+    # D103: 缺少函数文档字符串
+    D103,
+    # D104: 缺少包文档字符串
+    D104,
+    # D105: 缺少魔术方法文档字符串
+    D105,
+    # D106: 缺少内部类文档字符串
+    D106,
+    # D107: 缺少__init__文档字符串
+    D107,
+    # D200: 文档字符串需要适合一行
+    D200,
+    # D204: 类文档字符串后需要一个空行
+    D204,
+    # D205: 摘要行和描述之间需要一个空行
+    D205,
+    # D400: 文档字符串第一行应以句点结束
+    D400,
+    # W291: 行尾有空格
+    W291,
+    # W292: 文件末尾没有换行符
+    W292,
+    # W293: 空行中有空格
+    W293,
+    # B008: 在参数默认值中执行函数调用
+    B008,
+    # E501: 行太长
+    E501
+
+# 保护关键文件 (任何修改这些文件的操作都会被警告)
+per-file-ignores =
+    # 保护项目配置文件
+    pyproject.toml:W,E
+    poetry.lock:W,E
+    .env:W,E
+    .env.example:W,E
+    alembic.ini:W,E
+    Dockerfile:W,E
+    docker-compose.yml:W,E
+    Makefile:W,E
+    # 测试文件中允许文件删除操作（用于测试插件）
+    test_file_delete.py:FPF100,FPF101,S108
+    # 忽略flake8插件文件中的某些问题
+    flake8_protected_files.py:F401,D400,W293,E501
+
+# 开启额外规则检查
+enable-extensions =
+    # 危险函数检查
+    B,
+    # 复杂度检查
+    C,
+    # 文档字符串检查
+    D,
+    # 安全相关检查
+    S
+
+# 额外插件设置
+[flake8:local-plugins]
+extension =
+    # 自定义扩展
+    FPF = flake8_protected_files:ProtectedFilesPlugin
+
+[isort]
+profile = black
+line_length = 100 

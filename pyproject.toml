@@ -41,6 +41,9 @@ celery = "^5.3.6" # 分布式任务队列，用于处理后台任务
 
 # HTTP 客户端，常用于测试或进行外部 API 调用
 httpx = "^0.27.0" # 异步 HTTP 客户端
+email-validator = "^2.2.0"
+greenlet = "^3.2.1"
+bcrypt = "3.2.2"
 
 [tool.poetry.group.dev.dependencies]
 # 开发环境依赖，用于测试、代码格式化等
@@ -50,6 +53,13 @@ black = "^24.3.0" # 代码格式化工具，强制统一代码风格
 isort = "^5.13.2" # Import 排序工具，自动整理 import 语句
 flake8 = "^7.0.0" # 代码风格检查工具 (Linter)，检查代码是否符合规范
 pre-commit = "^3.7.0" # 用于管理 Git 预提交钩子，可以在提交前自动运行格式化和检查工具
+flake8-bugbear = "^24.12.12"
+flake8-bandit = "^4.1.1"
+flake8-comprehensions = "^3.16.0"
+flake8-docstrings = "^1.7.0"
+
+[tool.poetry.plugins."flake8.extension"]
+FPF = "flake8_protected_files:ProtectedFilesPlugin"
 
 [build-system]
 requires = ["poetry-core"]

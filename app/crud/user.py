@@ -66,7 +66,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         self, db: AsyncSession, *, email: str, password: str
     ) -> Optional[User]:
         """
-        验证用户
+        通过邮箱验证用户
         """
         user = await self.get_by_email(db, email=email)
         if not user:
@@ -74,6 +74,35 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         if not verify_password(password, user.hashed_password):
             return None
         return user
+
+    async def authenticate_by_username(
+        self, db: AsyncSession, *, username: str, password: str
+    ) -> Optional[User]:
+        """
+        通过用户名验证用户
+        """
+        user = await self.get_by_username(db, username=username)
+        if not user:
+            return None
+        if not verify_password(password, user.hashed_password):
+            return None
+        return user
+
+    async def authenticate_by_username_or_email(
+        self, db: AsyncSession, *, username_or_email: str, password: str
+    ) -> Optional[User]:
+        """
+        通过用户名或邮箱验证用户
+        """
+        # 先尝试邮箱验证
+        user = await self.authenticate(db, email=username_or_email, password=password)
+        if user:
+            return user
+
+        # 尝试用户名验证
+        return await self.authenticate_by_username(
+            db, username=username_or_email, password=password
+        )
 
     def is_active(self, user: User) -> bool:
         """
