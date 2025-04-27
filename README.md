@@ -1,339 +1,263 @@
-# FastAPI 通用模板项目
+# FastAPI Template Project
 
-基于 FastAPI 的现代化后端应用程序通用模板，集成了企业级应用开发所需的各种组件和最佳实践。
+A modern backend application template based on FastAPI, integrating various components and best practices required for enterprise-level application development.
 
-## 特性
+English | [简体中文](README_zh.md)
 
-- ✅ **FastAPI** - 快速高效的现代 Python API 框架
-- ✅ **异步 SQLAlchemy** - 完全异步的 ORM 支持
-- ✅ **PostgreSQL** - 强大的关系型数据库
-- ✅ **Alembic** - 数据库迁移工具
-- ✅ **Pydantic V2** - 强大的数据验证
-- ✅ **JWT 认证** - 基于 JWT 的安全认证
-- ✅ **UUID 主键** - 使用 UUID 作为主键代替自增 ID
-- ✅ **时区处理** - 内置澳大利亚悉尼时区支持
-- ✅ **Celery** - 后台任务处理
-- ✅ **Redis** - 高性能缓存和消息代理
-- ✅ **Docker** - 容器化部署支持
-- ✅ **Pytest** - 全面的测试支持
-- ✅ **Poetry** - 现代 Python 依赖管理
-- ✅ **Loguru** - 更友好的日志系统
-- ✅ **预配置环境变量** - 环境变量控制的配置系统
-- ✅ **自动初始化超级用户** - 应用启动时自动创建超级用户
+## Features
 
-## 项目结构
+- ✅ **FastAPI** - Fast and efficient modern Python API framework
+- ✅ **Async SQLAlchemy** - Full asynchronous ORM support
+- ✅ **PostgreSQL** - Powerful relational database
+- ✅ **Alembic** - Database migration tool
+- ✅ **Pydantic V2** - Robust data validation
+- ✅ **JWT Authentication** - JWT-based secure authentication
+- ✅ **UUID Primary Keys** - Using UUID instead of auto-incrementing IDs
+- ✅ **Timezone Handling** - Built-in Sydney timezone support
+- ✅ **Celery** - Background task processing
+- ✅ **Redis** - High-performance cache and message broker
+- ✅ **Docker** - Containerized deployment support
+- ✅ **Pytest** - Comprehensive testing support
+- ✅ **Poetry** - Modern Python dependency management
+- ✅ **Loguru** - User-friendly logging system
+- ✅ **Pre-configured Environment Variables** - Environment-controlled configuration system
+- ✅ **Auto-init Superuser** - Automatic superuser creation on application startup
+
+## Project Structure
 
 ```
 .
-├── alembic/                     # 数据库迁移配置
-├── app/                         # 应用程序代码
-│   ├── api/                     # API路由
-│   │   ├── deps.py              # 依赖项（认证等）
-│   │   └── v1/                  # API v1版本
-│   │       ├── api.py           # API路由注册
-│   │       └── endpoints/       # 各个端点实现
-│   │           ├── health.py    # 健康检查接口
-│   │           └── time_demo.py # 时区演示接口
-│   ├── core/                    # 核心模块
-│   │   ├── config.py            # 配置管理
-│   │   ├── security.py          # 安全工具
-│   │   ├── logging.py           # 日志配置
-│   │   └── init_app.py          # 应用初始化
-│   ├── crud/                    # CRUD操作
-│   │   ├── base.py              # 基础CRUD类
-│   │   └── user.py              # 用户CRUD操作
-│   ├── db/                      # 数据库设置
-│   │   ├── base.py              # 导入所有模型
-│   │   ├── base_class.py        # 基础模型类
-│   │   └── session.py           # 会话管理
-│   ├── models/                  # SQLAlchemy模型
-│   │   └── user.py              # 用户模型
-│   ├── schemas/                 # Pydantic模型
-│   │   └── user.py              # 用户Schema
-│   ├── services/                # 服务层
-│   ├── utils/                   # 工具函数
-│   │   └── time.py              # 时区处理工具
-│   ├── worker.py                # Celery配置
-│   └── main.py                  # 应用入口
-├── tests/                       # 测试代码
-│   ├── conftest.py              # 测试配置
-│   └── test_health.py           # 健康检查测试
-├── .env                         # 开发环境变量
-├── .env.example                 # 环境变量示例
-├── docker-compose.yml           # Docker Compose配置
-├── Dockerfile                   # Docker配置
-├── pyproject.toml               # Poetry依赖管理
-├── .pre-commit-config.yaml      # 预提交钩子配置
-├── .gitignore                   # Git忽略文件配置
-└── README.md                    # 项目文档
+├── alembic/                     # Database migration configuration
+├── app/                         # Application code
+│   ├── api/                     # API routes
+│   │   ├── deps.py              # Dependencies (auth, etc.)
+│   │   └── v1/                  # API v1 version
+│   │       ├── api.py           # API route registration
+│   │       └── endpoints/       # Endpoint implementations
+│   │           ├── health.py    # Health check API
+│   │           └── time_demo.py # Timezone demo API
+│   ├── core/                    # Core modules
+│   │   ├── config.py            # Configuration management
+│   │   ├── security.py          # Security utilities
+│   │   ├── logging.py           # Logging configuration
+│   │   └── init_app.py          # App initialization
+│   ├── crud/                    # CRUD operations
+│   │   ├── base.py              # Base CRUD class
+│   │   └── user.py              # User CRUD operations
+│   ├── db/                      # Database setup
+│   │   ├── base.py              # Import all models
+│   │   ├── base_class.py        # Base model class
+│   │   └── session.py           # Session management
+│   ├── models/                  # SQLAlchemy models
+│   │   └── user.py              # User model
+│   ├── schemas/                 # Pydantic models
+│   │   └── user.py              # User schema
+│   ├── services/                # Service layer
+│   ├── utils/                   # Utility functions
+│   │   └── time.py              # Timezone utilities
+│   ├── worker.py                # Celery configuration
+│   └── main.py                  # Application entry
+├── tests/                       # Test code
+│   ├── conftest.py              # Test configuration
+│   └── test_health.py           # Health check tests
+├── .env                         # Development environment variables
+├── .env.example                 # Environment variables example
+├── docker-compose.yml           # Docker Compose configuration
+├── Dockerfile                   # Docker configuration
+├── pyproject.toml               # Poetry dependency management
+├── .pre-commit-config.yaml      # Pre-commit hook configuration
+├── .gitignore                   # Git ignore configuration
+└── README.md                    # Project documentation
 ```
 
-## 快速开始
+## Quick Start
 
-### 环境要求
+### Requirements
 
 - Python 3.9+
 - PostgreSQL 13+
 - Redis 6+
 
-### 使用 Docker Compose
+### Using Docker Compose
 
-最简单的启动方式是使用 Docker Compose:
+The simplest way to start is using Docker Compose:
 
-1. 克隆项目
+1. Clone the project
 
 ```bash
 git clone https://your-repository-url/fastapi-template.git
 cd fastapi-template
 ```
 
-2. 配置环境变量
+2. Configure environment variables
 
 ```bash
 cp .env.example .env
-# 编辑 .env 文件以适应您的环境
+# Edit .env file to suit your environment
 ```
 
-3. 启动所有服务
+3. Start all services
 
 ```bash
 docker-compose up -d
 ```
 
-4. 访问接口文档
+4. Access API documentation
 
 ```
 http://localhost:8000/docs
 ```
 
-### 本地开发环境
+### Local Development Environment
 
-1. 克隆项目
+1. Clone the project
 
 ```bash
 git clone https://your-repository-url/fastapi-template.git
 cd fastapi-template
 ```
 
-2. 安装依赖
+2. Install dependencies
 
 ```bash
-# 安装 Poetry
+# Install Poetry
 pip install poetry
 
-# 安装依赖
+# Install dependencies
 poetry install
 ```
 
-3. 配置环境变量
+3. Configure environment variables
 
 ```bash
 cp .env.example .env
-# 编辑 .env 文件以适应您的环境
+# Edit .env file to suit your environment
 ```
 
-4. 运行数据库迁移
+4. Run database migrations
 
 ```bash
 poetry run alembic upgrade head
 ```
 
-5. 启动应用
+5. Start the application
 
 ```bash
 poetry run uvicorn app.main:app --reload
 ```
 
-## 核心功能说明
+## Core Features
 
-### 环境变量配置
+### Environment Variables Configuration
 
-本模板使用 `.env` 文件进行配置，主要配置项包括：
+This template uses `.env` file for configuration, including:
 
-- **项目设置** - 项目名称、API 前缀
-- **服务器设置** - 主机地址、端口
-- **安全设置** - JWT 密钥、算法、令牌过期时间
-- **数据库设置** - PostgreSQL 连接信息
-- **Redis 设置** - Redis 服务器信息
-- **Celery 配置** - 后台任务配置
-- **超级用户配置** - 初始超级用户信息
-- **时区配置** - 默认为澳大利亚悉尼时区
+- **Project Settings** - Project name, API prefix
+- **Server Settings** - Host address, port
+- **Security Settings** - JWT secret key, algorithm, token expiration time
+- **Database Settings** - PostgreSQL connection info
+- **Redis Settings** - Redis server info
+- **Celery Configuration** - Background task settings
+- **Superuser Configuration** - Initial superuser info
+- **Timezone Configuration** - Default to Australia/Sydney timezone
 
-详细配置请参考 `.env.example` 文件。
+Refer to `.env.example` for detailed configuration.
 
-### 数据库迁移
+### Database Migrations
 
-使用 Alembic 进行数据库迁移:
+Use Alembic for database migrations:
 
 ```bash
-# 创建迁移
-poetry run alembic revision --autogenerate -m "迁移描述"
+# Create migration
+poetry run alembic revision --autogenerate -m "migration description"
 
-# 应用迁移
+# Apply migration
 poetry run alembic upgrade head
 
-# 回滚迁移
+# Rollback migration
 poetry run alembic downgrade -1
 ```
 
-### UUID 主键
+### UUID Primary Keys
 
-本模板使用 UUID 作为用户表主键，相比自增 ID 有如下优势：
+This template uses UUID as primary keys for user tables, offering advantages over auto-incrementing IDs:
 
-- 全局唯一性，避免 ID 冲突
-- 更高的安全性，难以猜测
-- 适合分布式系统
+- Global uniqueness, avoiding ID conflicts
+- Enhanced security, harder to guess
+- Suitable for distributed systems
 
-实现位于 `app/models/user.py`，使用 PostgreSQL 原生 UUID 类型。
+Implemented in `app/models/user.py`, using PostgreSQL native UUID type.
 
-### 时区处理
+### Timezone Handling
 
-本模板提供了完整的时区处理支持，默认使用澳大利亚悉尼时区：
+The template provides complete timezone support, defaulting to Australia/Sydney timezone:
 
-- 在数据库中存储 UTC 时间（带时区信息）
-- API 响应中自动转换为悉尼时区
-- 提供时区转换工具函数 `app/utils/time.py`
-- 包含时间转换演示接口 `/api/v1/time`
+- Stores UTC time in database (with timezone info)
+- Automatically converts to Sydney timezone in API responses
+- Provides timezone conversion utilities in `app/utils/time.py`
+- Includes time conversion demo API `/api/v1/time`
 
-### JWT 认证
+### JWT Authentication
 
-内置完整的 JWT 认证支持：
+Built-in complete JWT authentication support:
 
-- 安全的密码哈希处理
-- 基于角色的访问控制
-- 刷新令牌支持
-- 依赖项注入认证中间件
+- Use `/api/v1/auth/login` endpoint to obtain token
+- Support username or email login
+- Configurable token expiration time
+- Includes token refresh mechanism
 
-### Celery 后台任务
+### Celery Background Tasks
 
-集成 Celery 用于处理后台任务：
+Integrates Celery for background task processing:
 
-- 与 Redis 消息代理集成
-- 自动同步悉尼时区设置
-- 通过 docker-compose 配置 Celery Worker 和 Flower 监控
+- Uses Redis as message broker
+- Supports task status tracking
+- Includes example task in `app/worker.py`
+- Configurable task timeout
 
-### 自动初始化超级用户
+### Testing Support
 
-应用首次启动时自动检查并创建超级用户：
-
-- 通过环境变量配置超级用户信息
-- 只在数据库中不存在超级用户时创建
-- 可完全自定义超级用户信息
-
-### 依赖注入系统
-
-利用 FastAPI 的依赖注入系统提供：
-
-- 数据库会话
-- 当前用户获取
-- 权限检查
-- 各种共用组件
-
-## API 文档
-
-启动应用后，可通过以下地址访问自动生成的 API 文档：
-
-- Swagger UI: http://localhost:8000/docs
-- ReDoc: http://localhost:8000/redoc
-
-## 测试
-
-本模板包含完整的测试框架：
+Uses Pytest for testing:
 
 ```bash
-# 运行所有测试
+# Run all tests
 poetry run pytest
 
-# 生成测试覆盖率报告
-poetry run pytest --cov=app --cov-report=html
+# Run specific test file
+poetry run pytest tests/test_health.py
+
+# Show test coverage report
+poetry run pytest --cov=app
 ```
 
-## 开发最佳实践
+### Code Quality Tools
 
-### 添加新的 API 端点
+Integrates multiple code quality tools:
 
-1. 在 `app/api/v1/endpoints/` 创建新文件
-2. 在 `app/api/v1/api.py` 注册路由
-3. 创建相应的模型、Schema 和 CRUD 操作
+- **Black** - Code formatting
+- **Flake8** - Code style checking
+- **isort** - Import statement sorting
+- **pre-commit** - Git pre-commit checks
 
-### 添加新的数据模型
-
-1. 在 `app/models/` 创建新模型文件
-2. 在 `app/db/base.py` 导入新模型
-3. 创建对应的 Pydantic Schema
-4. 实现 CRUD 操作
-
-### 代码风格指南
-
-本项目采用以下代码风格：
-
-- **Black** - 自动格式化代码
-- **isort** - 导入排序
-- **Flake8** - 代码规范检查，包含以下特性：
-  - 防止硬编码密码和敏感信息
-  - 自定义插件检测文件删除操作
-  - 忽略特定目录的检查（.github/, docs/, scripts/, migrations/）
-  - 支持忽略未使用导入（F401）
-  - 配置文件保护机制
-
-在提交代码前，请确保代码符合风格要求：
+Run code quality checks:
 
 ```bash
-# 自动格式化代码
-poetry run black app tests
-poetry run isort app tests
+# Install pre-commit hooks
+pre-commit install
 
-# 规范检查
-poetry run flake8 app tests
+# Manually run all checks
+pre-commit run --all-files
 ```
 
-#### 安全最佳实践
+## Contributing
 
-- 禁止在代码中直接硬编码密码或安全敏感信息
-- 所有密码和机密信息应通过环境变量或安全存储服务获取
-- 使用参数化变量构建连接字符串，避免硬编码空字符串
-- 敏感文件操作（如删除）会经过特殊检查
+Contributions are welcome! Please ensure before submitting a Pull Request:
 
-## 部署指南
+1. Update test cases
+2. Update documentation
+3. Follow code style guidelines
+4. Add necessary comments
 
-### Docker 部署
+## License
 
-最推荐的部署方式是使用 Docker Compose:
-
-```bash
-# 生产环境部署
-docker-compose -f docker-compose.yml up -d
-```
-
-### 传统部署
-
-1. 安装 Python 和依赖
-2. 配置环境变量
-3. 运行数据库迁移
-4. 使用 Gunicorn 和 Uvicorn worker 启动应用
-
-```bash
-gunicorn app.main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
-```
-
-## 贡献指南
-
-我们欢迎任何形式的贡献！如果您发现了 bug 或有新功能建议，请先查看 issues 列表。
-
-提交 Pull Request 前，请确保：
-
-1. 代码符合项目风格指南
-2. 添加必要的测试
-3. 通过现有测试
-4. 更新相关文档
-
-## 许可证
-
-本项目采用 MIT 许可证。详情请参阅 [LICENSE](LICENSE) 文件。
-
-## 联系方式
-
-如有任何问题或建议，请联系项目维护者：
-
-- 邮箱: your.email@example.com
-- GitHub: [您的 GitHub 用户名](https://github.com/yourusername) 
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
