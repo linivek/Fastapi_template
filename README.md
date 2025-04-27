@@ -85,8 +85,8 @@ The simplest way to start is using Docker Compose:
 1. Clone the project
 
 ```bash
-git clone https://your-repository-url/fastapi-template.git
-cd fastapi-template
+git clone https://github.com/linivek/Fastapi_template.git
+cd Fastapi_template
 ```
 
 2. Configure environment variables
@@ -113,8 +113,8 @@ http://localhost:8000/docs
 1. Clone the project
 
 ```bash
-git clone https://your-repository-url/fastapi-template.git
-cd fastapi-template
+git clone https://github.com/linivek/Fastapi_template.git
+cd Fastapi_template
 ```
 
 2. Install dependencies

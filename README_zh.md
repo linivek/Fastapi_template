@@ -85,8 +85,8 @@
 1. 克隆项目
 
 ```bash
-git clone https://your-repository-url/fastapi-template.git
-cd fastapi-template
+git clone https://github.com/linivek/Fastapi_template.git
+cd Fastapi_template
 ```
 
 2. 配置环境变量
@@ -113,8 +113,8 @@ http://localhost:8000/docs
 1. 克隆项目
 
 ```bash
-git clone https://your-repository-url/fastapi-template.git
-cd fastapi-template
+git clone https://github.com/linivek/Fastapi_template.git
+cd Fastapi_template
 ```
 
 2. 安装依赖
